@@ -118,6 +118,9 @@ impl DeviceImpl {
     ///
     /// This will fail unless it is called from a UWP application.
     pub async fn pair(&self) -> Result<()> {
+        if self.is_paired().await? {
+            return Ok(());
+        }
         let op = self.inner.DeviceInformation()?.Pairing()?.PairAsync()?;
         let res = op.await?;
         check_pairing_status(res.Status()?)
@@ -125,6 +128,9 @@ impl DeviceImpl {
 
     /// Attempt to pair this device using the provided agent
     pub async fn pair_with_agent<T: PairingAgent>(&self, agent: &T) -> Result<()> {
+        if self.is_paired().await? {
+            return Ok(());
+        }
         let pairing_kinds_supported = match agent.io_capability() {
             IoCapability::DisplayOnly => DevicePairingKinds::DisplayPin,
             IoCapability::DisplayYesNo => {

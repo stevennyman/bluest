@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.6.10 [in progress]
+
+- (Windows) `pair()` and `pair_with_agent()` now result in a `no-op` if the device is already paired (same behavior as Linux)
+
 ## 0.6.9
 
 - (MacOS/iOS) Update to `objc2` crates
