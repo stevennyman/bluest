@@ -123,7 +123,7 @@ impl DeviceImpl {
         check_pairing_status(res.Status()?)
     }
 
-    /// Attempt to pair this device using the system default pairing UI
+    /// Attempt to pair this device using the provided agent
     pub async fn pair_with_agent<T: PairingAgent>(&self, agent: &T) -> Result<()> {
         let pairing_kinds_supported = match agent.io_capability() {
             IoCapability::DisplayOnly => DevicePairingKinds::DisplayPin,
