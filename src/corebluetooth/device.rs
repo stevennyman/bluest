@@ -112,7 +112,7 @@ impl DeviceImpl {
         Ok(())
     }
 
-    /// Attempt to pair this device using the system default pairing UI
+    /// Attempt to pair this device using the provided agent
     ///
     /// Device pairing is performed automatically by the OS when a characteristic requiring security is accessed. This
     /// method is a no-op.

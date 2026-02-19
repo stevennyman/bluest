@@ -97,7 +97,7 @@ impl DeviceImpl {
         self.inner.pair().await.map_err(Into::into)
     }
 
-    /// Attempt to pair this device using the system default pairing UI
+    /// Attempt to pair this device using the provided agent
     pub async fn pair_with_agent<T: PairingAgent + 'static>(&self, agent: &T) -> Result<()> {
         if self.is_paired().await? {
             return Ok(());
