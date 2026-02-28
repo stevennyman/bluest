@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use bluer::AdapterProperty;
+use bluer::{AdapterProperty, DiscoveryFilter, DiscoveryTransport};
 use futures_core::Stream;
 use futures_lite::StreamExt;
 
@@ -137,6 +137,10 @@ impl AdapterImpl {
         &'a self,
         services: &'a [Uuid],
     ) -> Result<impl Stream<Item = AdvertisingDevice> + Send + Unpin + 'a> {
+        let mut discovery_filter = DiscoveryFilter::default();
+        discovery_filter.transport = DiscoveryTransport::Le;
+        self.inner.set_discovery_filter(discovery_filter).await?;
+        
         Ok(self
             .inner
             .discover_devices()
